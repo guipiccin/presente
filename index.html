@@ -3,23 +3,76 @@
 <head>
   <meta charset="UTF-8">
   <title>Presente Especial!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <style>
-    body { background: #505050; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
-    .card { background: #fff; border-radius: 16px; padding: 32px; box-shadow: 0 6px 24px #0003; text-align: center; }
-    .mensagem { font-size: 1.2rem; color: #1b263b; }
-    .botao { background: #1b263b; color: #fff; border: none; border-radius: 8px; padding: 12px 28px; cursor: pointer; font-size: 1rem; margin-top: 20px;}
+    html, body {
+      background: #222;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      width: 100vw;
+      overflow-x: hidden;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    .card {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 2px 18px #0003;
+      padding: 18px 10px 20px 10px;
+      margin: 0 auto;
+      text-align: center;
+      width: 98vw;
+      max-width: 390px;
+      min-height: 55vh;
+      margin-top: 8vw;
+    }
+    h2 { font-size: 1.35rem; margin: 10px 0 22px 0; color: #2d3748; }
+    .mensagem { font-size: 1.1rem; color: #34495e; margin-bottom: 10px; }
+    .botao {
+      background: #444;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 13px 0;
+      width: 90vw;
+      max-width: 340px;
+      font-size: 1.08rem;
+      margin-top: 22px;
+      margin-bottom: 6px;
+      box-shadow: 0 2px 8px #0002;
+      font-weight: bold;
+      letter-spacing: .5px;
+      transition: background .2s;
+    }
+    .botao:active { background: #222; }
     .hidden { display: none; }
     .video-presente {
-      width: 100%;
-      max-width: 420px;
+      width: 98vw;
+      max-width: 360px;
       height: auto;
-      border-radius: 16px;
-      margin: 28px 0 10px 0;
-      box-shadow: 0 6px 24px #0002;
+      min-height: 180px;
+      border-radius: 13px;
+      margin: 22px 0 7px 0;
+      background: #111;
+      box-shadow: 0 2px 12px #0002;
+      display: block;
     }
-    @media (max-width: 480px) {
-      .video-presente { max-width: 98vw; }
-      .card { padding: 18px; }
+    input[type="text"] {
+      font-size: 1.09rem;
+      padding: 10px 10px;
+      border-radius: 7px;
+      border: 1.1px solid #bbb;
+      width: 92vw;
+      max-width: 320px;
+      margin: 14px 0 9px 0;
+      background: #f5f5f7;
+      text-align: center;
+      box-shadow: 0 2px 7px #0001;
+    }
+    #feedback { color: #e3342f; font-size: 1rem; min-height: 24px; }
+    @media (min-width: 440px) {
+      .card { margin-top: 42px; }
+      .video-presente { min-height: 210px; }
     }
   </style>
 </head>
@@ -27,16 +80,16 @@
   <div class="card" id="quiz-card">
     <h2>Antes de pegar seu presente,<br>responda:</h2>
     <div class="mensagem">Qual é o meu carro favorito?</div>
-    <input type="text" id="resposta" placeholder="Digite sua resposta aqui..." style="font-size:1rem; padding:7px 10px; margin:18px 0; border-radius:7px; border:1px solid #aaa;">
+    <input type="text" id="resposta" placeholder="Digite aqui..." autocomplete="off">
     <br>
     <button class="botao" onclick="verificaResposta()">Responder</button>
-    <div class="mensagem" id="feedback" style="margin-top:12px; color:#d90429;"></div>
+    <div class="mensagem" id="feedback"></div>
   </div>
 
   <div class="card hidden" id="presente-card">
     <h2>Parabéns, você acertou!</h2>
     <div class="mensagem">Você merece esse presente! Obrigado por ser um irmão incrível.</div>
-    <video class="vale" controls playsinline>
+    <video class="video-presente" controls playsinline>
       <source src="vale.mp4" type="video/mp4">
       Seu navegador não suporta o vídeo.
     </video>
@@ -48,9 +101,14 @@
       if(resposta === 'civic') {
         document.getElementById('quiz-card').classList.add('hidden');
         document.getElementById('presente-card').classList.remove('hidden');
+        window.scrollTo(0, 0);
       } else {
         document.getElementById('feedback').textContent = 'Hmmm... tente de novo! Dica: é só o último nome do carro.';
       }
+    }
+    // Força mobile look no desktop para testes
+    if(window.innerWidth > 440){
+      document.body.style.background = "#222";
     }
   </script>
 </body>
