@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Presente Especial!</title>
+  <style>
+    body { background: #505050; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
+    .card { background: #fff; border-radius: 16px; padding: 32px; box-shadow: 0 6px 24px #0003; text-align: center; }
+    .mensagem { font-size: 1.2rem; color: #1b263b; }
+    .botao { background: #1b263b; color: #fff; border: none; border-radius: 8px; padding: 12px 28px; cursor: pointer; font-size: 1rem; margin-top: 20px;}
+    .hidden { display: none; }
+    .video-presente {
+      width: 100%;
+      max-width: 420px;
+      height: auto;
+      border-radius: 16px;
+      margin: 28px 0 10px 0;
+      box-shadow: 0 6px 24px #0002;
+    }
+    @media (max-width: 480px) {
+      .video-presente { max-width: 98vw; }
+      .card { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card" id="quiz-card">
+    <h2>Antes de pegar seu presente,<br>responda:</h2>
+    <div class="mensagem">Qual é o meu carro favorito?</div>
+    <input type="text" id="resposta" placeholder="Digite sua resposta aqui..." style="font-size:1rem; padding:7px 10px; margin:18px 0; border-radius:7px; border:1px solid #aaa;">
+    <br>
+    <button class="botao" onclick="verificaResposta()">Responder</button>
+    <div class="mensagem" id="feedback" style="margin-top:12px; color:#d90429;"></div>
+  </div>
+
+  <div class="card hidden" id="presente-card">
+    <h2>Parabéns, você acertou!</h2>
+    <div class="mensagem">Você merece esse presente! Obrigado por ser um irmão incrível.</div>
+    <video class="vale" controls playsinline>
+      <source src="vale.mp4" type="video/mp4">
+      Seu navegador não suporta o vídeo.
+    </video>
+  </div>
+
+  <script>
+    function verificaResposta() {
+      const resposta = document.getElementById('resposta').value.trim().toLowerCase();
+      if(resposta === 'civic') {
+        document.getElementById('quiz-card').classList.add('hidden');
+        document.getElementById('presente-card').classList.remove('hidden');
+      } else {
+        document.getElementById('feedback').textContent = 'Hmmm... tente de novo! Dica: é só o último nome do carro.';
+      }
+    }
+  </script>
+</body>
+</html>
